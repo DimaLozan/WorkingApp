@@ -70,14 +70,14 @@ public class Controller {
                 tableView.getItems().remove(selectedProduct);
                 DatabaseHandler.removeProduct(selectedProduct.getName());
             } else {
-                AlertBox.displayErrorMessage("Select item to delete");
+
             }
         });
     }
 
     private String getStringFromTextField(TextField nameTextField) {
         if (nameTextField.getText().length() == 0) {
-            AlertBox.displayErrorMessage("You must enter the name of the product.");
+            AlertBox.displayErrorMessage(AlertBoxType.NAME_INPUT_ERROR);
             return "";
         } else {
             return nameTextField.getText();
@@ -90,13 +90,13 @@ public class Controller {
         float price = 0;
 
         if (priceTextField.getText().length() == 0) {
-            AlertBox.displayErrorMessage("You must enter the price of the product");
+            AlertBox.displayErrorMessage(AlertBoxType.PRICE_INPUT_ERROR);
         } else {
             try {
                 price = Float.parseFloat(priceTextField.getText());
             } catch (Exception e) {
                 AlertBox alertBox = new AlertBox();
-                alertBox.displayErrorMessage("Price must be a number, not a string.");
+                alertBox.displayErrorMessage(AlertBoxType.PRICE_INPUT_ERROR);
             }
         }
 
@@ -107,13 +107,13 @@ public class Controller {
         int quantity = 0;
 
         if (quantityTextField.getText().length() == 0) {
-            AlertBox.displayErrorMessage("You must enter the quantity of the products you have");
+            AlertBox.displayErrorMessage(AlertBoxType.QUANTITY_INPUT_ERROR);
         } else {
             try {
                 quantity = Integer.parseInt(quantityTextField.getText());
             } catch (Exception e) {
                 AlertBox alertBox = new AlertBox();
-                alertBox.displayErrorMessage("Quantity must be an integer");
+                alertBox.displayErrorMessage(AlertBoxType.QUANTITY_INPUT_ERROR);
             }
         }
 

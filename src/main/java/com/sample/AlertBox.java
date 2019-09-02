@@ -15,6 +15,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+enum AlertBoxType {
+    NAME_INPUT_ERROR,
+    PRICE_INPUT_ERROR,
+    QUANTITY_INPUT_ERROR
+}
+
 public class AlertBox {
 
     @FXML
@@ -32,30 +38,37 @@ public class AlertBox {
     @FXML
     private Label errorMsg;
 
-    private Stage window;
+    @FXML
+    private void okBtnAction() {
+        Stage stage = (Stage)okBtn.getScene().getWindow();
+        stage.close();
+    }
 
     @FXML
     void initialize() {
-        okBtn.setOnAction(event -> window.close());
+
     }
 
-    public static void displayErrorMessage(String message) {
+    public static void displayErrorMessage(AlertBoxType alertBoxType) {
         Stage window = new Stage();
+        Parent ui = null;
 
-        window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Error message");
-        window.setMinWidth(350);
+        try {
+            switch(alertBoxType) {
+                case NAME_INPUT_ERROR:
+                    ui = FXMLLoader.load(AlertBox.class.getClassLoader().getResource("nameAlertWindow.fxml"));
+                    break;
+                case PRICE_INPUT_ERROR:
+                    ui = FXMLLoader.load(AlertBox.class.getClassLoader().getResource("priceAlertWindow.fxml"));
+                    break;
+                case QUANTITY_INPUT_ERROR:
+                    ui = FXMLLoader.load(AlertBox.class.getClassLoader().getResource("quantityAlertWindow.fxml"));
+            }
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
 
-        Label label = new Label();
-        label.setText(message);
-        Button closeButton = new Button("Ok");
-        closeButton.setOnAction(event -> window.close());
-
-        VBox layout = new VBox(10);
-        layout.getChildren().addAll(label, closeButton);
-        layout.setAlignment(Pos.CENTER);
-
-        window.setScene(new Scene(layout));
+        window.setScene(new Scene(ui));
         window.showAndWait();
     }
 }
