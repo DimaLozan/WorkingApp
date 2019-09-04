@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="363.0" style="-fx-background-color: #2a2a2a;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sample.AlertBox">
    <children>
-      <Button fx:id="okBtn" layoutX="135.0" layoutY="60.0" mnemonicParsing="false" onAction="#okBtnAction" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: #464646;" text="Ok" textFill="WHITE" />
+      <Button fx:id="okBtn" onAction="#okBtnAction" layoutX="135.0" layoutY="60.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="94.0" style="-fx-background-color: #464646;" text="Ok" textFill="WHITE" />
       <Label layoutX="30.0" layoutY="14.0" prefHeight="18.0" prefWidth="303.0" text="You need to enter the price of the product" textFill="WHITE">
          <font>
             <Font name="Corbel Light" size="14.0" />

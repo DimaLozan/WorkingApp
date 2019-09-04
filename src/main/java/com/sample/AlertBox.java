@@ -18,7 +18,8 @@ import javafx.stage.Stage;
 enum AlertBoxType {
     NAME_INPUT_ERROR,
     PRICE_INPUT_ERROR,
-    QUANTITY_INPUT_ERROR
+    QUANTITY_INPUT_ERROR,
+    NO_DATA_INPUT_ERROR
 }
 
 public class AlertBox {
@@ -63,6 +64,10 @@ public class AlertBox {
                     break;
                 case QUANTITY_INPUT_ERROR:
                     ui = FXMLLoader.load(AlertBox.class.getClassLoader().getResource("quantityAlertWindow.fxml"));
+                    break;
+                case NO_DATA_INPUT_ERROR:
+                    ui = FXMLLoader.load(AlertBox.class.getClassLoader().getResource("noDataEnteredAlertWindow.fxml"));
+                    break;
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());

@@ -47,6 +47,8 @@ public class Controller {
     @FXML
     private Button deleteBtn;
 
+
+
     private ObservableList<Product> products;
 
     @FXML
@@ -57,11 +59,32 @@ public class Controller {
         products = FXCollections.observableArrayList();
         tableView.setItems(DatabaseHandler.getProductsFromDatabase(products));
 
+        // TODO: Fix the alert boxes if's when the users doesn't enters this or that field
         addBtn.setOnAction(event -> {
             String name = getStringFromTextField(nameTextField);
             float price = getFloatFromTextField(priceTextField);
             int quantity = getIntFromTextField(quantityTextField);
-            addItem(products, name, price, quantity);
+
+            if (name == "" && price == 0 && quantity == 0) {
+                AlertBox.displayErrorMessage(AlertBoxType.NO_DATA_INPUT_ERROR);
+            } else if (name == "") {
+                AlertBox.displayErrorMessage(AlertBoxType.NAME_INPUT_ERROR);
+            } else if (price == 0) {
+                AlertBox.displayErrorMessage(AlertBoxType.PRICE_INPUT_ERROR);
+            } else if (quantity == 0) {
+                AlertBox.displayErrorMessage(AlertBoxType.QUANTITY_INPUT_ERROR);
+            } else if (name == "" && price == 0) {
+                AlertBox.displayErrorMessage(AlertBoxType.NAME_INPUT_ERROR);
+                AlertBox.displayErrorMessage(AlertBoxType.PRICE_INPUT_ERROR);
+            } else if (name == "" && quantity == 0) {
+                AlertBox.displayErrorMessage(AlertBoxType.NAME_INPUT_ERROR);
+                AlertBox.displayErrorMessage(AlertBoxType.QUANTITY_INPUT_ERROR);
+            } else if (price == 0 && quantity == 0) {
+                AlertBox.displayErrorMessage(AlertBoxType.PRICE_INPUT_ERROR);
+                AlertBox.displayErrorMessage(AlertBoxType.QUANTITY_INPUT_ERROR);
+            } else {
+                addItem(products, name, price, quantity);
+            }
         });
 
         deleteBtn.setOnAction(event -> {
@@ -76,48 +99,28 @@ public class Controller {
     }
 
     private String getStringFromTextField(TextField nameTextField) {
-        if (nameTextField.getText().length() == 0) {
-            AlertBox.displayErrorMessage(AlertBoxType.NAME_INPUT_ERROR);
-            return "";
-        } else {
+        if (nameTextField.getText().length() != 0) {
             return nameTextField.getText();
+        } else {
+            return "";
         }
-
 
     }
 
     private float getFloatFromTextField(TextField priceTextField) {
-        float price = 0;
-
-        if (priceTextField.getText().length() == 0) {
-            AlertBox.displayErrorMessage(AlertBoxType.PRICE_INPUT_ERROR);
+        if (priceTextField.getText().length() != 0) {
+            return Float.parseFloat(priceTextField.getText());
         } else {
-            try {
-                price = Float.parseFloat(priceTextField.getText());
-            } catch (Exception e) {
-                AlertBox alertBox = new AlertBox();
-                alertBox.displayErrorMessage(AlertBoxType.PRICE_INPUT_ERROR);
-            }
+            return 0;
         }
-
-        return price;
     }
 
     private int getIntFromTextField(TextField quantityTextField) {
-        int quantity = 0;
-
-        if (quantityTextField.getText().length() == 0) {
-            AlertBox.displayErrorMessage(AlertBoxType.QUANTITY_INPUT_ERROR);
+        if (quantityTextField.getText().length() != 0) {
+            return Integer.parseInt(quantityTextField.getText());
         } else {
-            try {
-                quantity = Integer.parseInt(quantityTextField.getText());
-            } catch (Exception e) {
-                AlertBox alertBox = new AlertBox();
-                alertBox.displayErrorMessage(AlertBoxType.QUANTITY_INPUT_ERROR);
-            }
+            return 0;
         }
-
-        return quantity;
     }
 
     private void addItem(ObservableList<Product> products, String name, float price, int quantity) {
