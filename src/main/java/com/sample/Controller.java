@@ -93,7 +93,7 @@ public class Controller {
                 tableView.getItems().remove(selectedProduct);
                 DatabaseHandler.removeProduct(selectedProduct.getName());
             } else {
-
+                AlertBox.displayErrorMessage(AlertBoxType.PRODUCT_NOT_SELECTED_ERROR);
             }
         });
     }
