@@ -19,7 +19,8 @@ enum AlertBoxType {
     NAME_INPUT_ERROR,
     PRICE_INPUT_ERROR,
     QUANTITY_INPUT_ERROR,
-    NO_DATA_INPUT_ERROR
+    NO_DATA_INPUT_ERROR,
+    PRODUCT_NOT_SELECTED_ERROR
 }
 
 public class AlertBox {
@@ -68,6 +69,8 @@ public class AlertBox {
                 case NO_DATA_INPUT_ERROR:
                     ui = FXMLLoader.load(AlertBox.class.getClassLoader().getResource("noDataEnteredAlertWindow.fxml"));
                     break;
+                case PRODUCT_NOT_SELECTED_ERROR:
+                    ui = FXMLLoader.load(AlertBox.class.getClassLoader().getResource("productNotSelectedAlertWindow.fxml"));
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());
