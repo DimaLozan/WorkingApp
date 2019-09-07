@@ -46,11 +46,6 @@ public class AlertBox {
         stage.close();
     }
 
-    @FXML
-    void initialize() {
-
-    }
-
     public static void displayErrorMessage(AlertBoxType alertBoxType) {
         Stage window = new Stage();
         Parent ui = null;
@@ -76,6 +71,7 @@ public class AlertBox {
             System.out.println(e.getMessage());
         }
 
+        window.initModality(Modality.APPLICATION_MODAL);
         window.setScene(new Scene(ui));
         window.showAndWait();
     }
